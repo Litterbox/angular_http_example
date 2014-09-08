@@ -57,6 +57,6 @@ BookApp.controller "BookDetailsCtrl", ["$scope", "$http", "$routeParams", ($scop
 ]
 
 # Define Config for CSRF token
-BookApp.config(["$httpProvider", ($httpProvider)->
+BookApp.config ["$httpProvider", ($httpProvider)->
   $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
-])
+]
