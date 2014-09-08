@@ -70,13 +70,6 @@ TestApp.config(["$httpProvider", function($httpProvider){
 }])
 ```
 
-## Promises and HTTP 
+## Angular Router
 
-1. $http comes with promises built it 
-
-$scope.documents = [];
-$http.get('/Documents/DocumentsList/' + caseId)
-  .then(function(result) {
-    $scope.documents = result.data;
-});
-
+## ng-view vs yield 

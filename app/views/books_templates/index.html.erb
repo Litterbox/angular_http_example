@@ -1,4 +1,4 @@
-<span ng-init = "getBooks()">
+<div ng-init = "getBooks()">
 <h1>Book App</h1>
 
   <form ng-submit="addBook()">
@@ -9,12 +9,10 @@
   </form>
 
   <ul ng-repeat="book in books">
-    <!-- This is where you should put your edit form -->
-    <!-- Use ng-show to toggle it on/off -->
     <li>
-      <a href="/books/{{book.id}}">{{book.title}} - {{book.author}}</a>
+      <a href="/books/{{book.id}}">{{book.title}}, {{book.author}}</a>
       <button ng-click="deleteBook()">Delete</button></li>
   </ul>
 
 
-</span>
+</div>
