@@ -9,7 +9,7 @@
     <button>Add Book</button>
   </form>
 
-  <ul ng-repeat="book in books">
+  <ul ng-repeat="book in books | orderBy: 'title' | limitTo: 4" >
     <!-- This is where you should put your edit form -->
     <!-- Use ng-show to toggle it on/off -->
     <li>{{book.title}} - {{book.author}} <button ng-click="deleteBook()">Delete</button></li>
