@@ -1,38 +1,31 @@
 # Define App and dependencies
 BookApp = angular.module("BookApp", [
-  "ngRoute",
-  "ngResource"
+  "ngRoute"
 ])
 
 # Setup the angular router
-BookApp.config(["$routeProvider", "$locationProvider", ($routeProvider, $locationProvider)->
+BookApp.config ["$routeProvider", "$locationProvider", ($routeProvider, $locationProvider)->
   $routeProvider
-    .when("/books", {
+    .when "/books",
       templateUrl: "/books_templates/index",
       controller: "BooksCtrl"
-    })
-    .when("/books/:id", {
+    .when "/books/:id",
       templateUrl: "/books_templates/show",
       controller: "BookDetailsCtrl"
-    })
-    .otherwise({
+    .otherwise
       redirectTo: "/books"
-    })
+
   $locationProvider.html5Mode(true)
-])
+]
 
-BookApp.factory("Books", ["$resource", ($resource)->
-  $resource("/books/:id.json", {id: "@id"}, {update: {method: "PUT"}})
-])
-
-# Books Controller
-BookApp.controller("BooksCtrl", ["$scope", "$http", "Books", ($scope, $http, Books) ->
+# Books Contrrails oller
+BookApp.controller "BooksCtrl", ["$scope", "$http", ($scope, $http) ->
 
   $scope.books = []
 
-  Books.query (data)->
-    console.log("RETRIEVED ALL BOOKS!!!")
-    $scope.books = data
+  $scope.getBooks = ->
+    $http.get("/books.json").success (data)->
+      $scope.books = data
 
   $scope.addBook = ->
     console.log $scope.newBook
@@ -46,11 +39,10 @@ BookApp.controller("BooksCtrl", ["$scope", "$http", "Books", ($scope, $http, Boo
     $http.delete("/books/#{@book.id}.json").success (data)=>
       console.log "book deleted"
       $scope.books.splice(@$index,1)
-
-])
+]
 
 # BookDetailsCtrl
-BookApp.controller("BookDetailsCtrl", ["$scope", "$http", "$routeParams", ($scope, $http, $routeParams)->
+BookApp.controller "BookDetailsCtrl", ["$scope", "$http", "$routeParams", ($scope, $http, $routeParams)->
   $scope.book_id = $routeParams.id
 
   $http.get("/books/#{$scope.book_id}.json").success((data)->
@@ -66,8 +58,7 @@ BookApp.controller("BookDetailsCtrl", ["$scope", "$http", "$routeParams", ($scop
     $scope.book.author = $scope.new_author
     $scope.book.description = $scope.new_description
     $http.put("/books/#{$scope.book_id}.json", $scope.book).success (data)->
-])
-
+]
 
 # Define Config
 BookApp.config(["$httpProvider", ($httpProvider)->
