@@ -13,14 +13,14 @@ BookApp.config ["$routeProvider", "$locationProvider", ($routeProvider, $locatio
     .otherwise
       redirectTo: "/books"
 
-  $locationProvider.html5Mode(true).hashPrefix('!')
+  $locationProvider.html5Mode(true)
 ]
 
 # Books Controller
 BookApp.controller "BooksCtrl", ["$scope", "$http", ($scope, $http) ->
 
   $scope.books = []
-  $scope.showForm = false
+  $scope.wrong = true;
 
   $scope.getBooks = ->
     $http.get("/books.json").success (data)->
@@ -45,8 +45,7 @@ BookApp.controller "BooksCtrl", ["$scope", "$http", ($scope, $http) ->
       )
 
   $scope.editBook =(book) ->
-    console.log($scope.checked)
-    $scope.checked = false
+    this.checked = false
     $http.put("/books/#{@book.id}.json", book).success (data)->
 ]
 
