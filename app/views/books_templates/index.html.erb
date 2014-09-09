@@ -9,9 +9,17 @@
   </form>
 
   <ul ng-repeat="book in books">
-    <li>
-      <a href="/books/{{book.id}}">{{book.title}}, {{book.author}}</a>
-      <button ng-click="deleteBook()">Delete</button></li>
+    <li>{{book.title}}, {{book.author}}
+      <button ng-click="deleteBook()">Delete</button>
+      <input type="checkbox" ng-click="getEditForm(book)" ng-model ="$parent.checked"><label>Edit</label>
+
+    <form ng-submit="editBook(book)" ng-show = "checked">
+      <input type="text" ng-model="book.title" placeholder="Title">
+      <input type="text" ng-model="book.author" placeholder="Author">
+      <input type="text" ng-model="book.description" placeholder="Description">
+      <button>Edit Book</button>
+    </form>
+  </li>
   </ul>
 
 

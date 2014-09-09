@@ -12,7 +12,7 @@ In your controller, $http will be one of the dependencies so before you include 
 	- In your app.js: `TestApp = angular.module("TestApp", []`
 
 	- And in your application.html.erb: `<body ng-app="TestApp">`
-	
+
 3. In your controller, specify include the $http dependency `TestApp.controller("TestCtrl", ["$scope", "$http", ($scope, $http) ->`
 
 ## Ways to write $http
@@ -28,7 +28,7 @@ In your controller, $http will be one of the dependencies so before you include 
     error(function(data, status, headers, config) {
     	 // these are all possible parameters for the callback
     });
-    
+
 ```
 
 2. Shortcut methods  (similar to the jQuery $.getJSON method)
@@ -49,7 +49,7 @@ $http.jsonp
 $http.patch
 ```
 
-## Let's talk a little more about headers - 
+## Let's talk a little more about headers -
 
 The $http service will automatically add certain HTTP headers to all requests. These defaults can be fully configured by accessing the $httpProvider.defaults.headers configuration object, which currently contains this default configuration:
 
@@ -62,7 +62,7 @@ $httpProvider.defaults.headers.put (header defaults for PUT requests)
 Content-Type: application/json
 ```
 
-What might we need to add to our headers in our Rails app? How about the CSRF Token? We would do that using the config option for 
+What might we need to add to our headers in our Rails app? How about the CSRF Token? We would do that using the config option (this is essential for our Rails app)
 
 ```
 TestApp.config(["$httpProvider", function($httpProvider){
@@ -72,4 +72,4 @@ TestApp.config(["$httpProvider", function($httpProvider){
 
 ## Angular Router
 
-## ng-view vs yield 
+## ng-view vs yield

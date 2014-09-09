@@ -13,13 +13,14 @@ BookApp.config ["$routeProvider", "$locationProvider", ($routeProvider, $locatio
     .otherwise
       redirectTo: "/books"
 
-  $locationProvider.html5Mode(true)
+  $locationProvider.html5Mode(true).hashPrefix('!')
 ]
 
 # Books Controller
 BookApp.controller "BooksCtrl", ["$scope", "$http", ($scope, $http) ->
 
   $scope.books = []
+  $scope.showForm = false
 
   $scope.getBooks = ->
     $http.get("/books.json").success (data)->
@@ -35,25 +36,18 @@ BookApp.controller "BooksCtrl", ["$scope", "$http", ($scope, $http) ->
     if conf
       $http.delete("/books/#{@book.id}.json").success (data)=>
         $scope.books.splice(@$index,1)
-]
 
-# BookDetails Controller
-BookApp.controller "BookDetailsCtrl", ["$scope", "$http", "$routeParams", ($scope, $http, $routeParams)->
-  $scope.book_id = $routeParams.id
+  $scope.getEditForm = ->
+    $http.get("/books/#{@book.id}.json").success((data)->
+      $scope.title = data.title
+      $scope.author = data.author
+      $scope.description = data.description
+      )
 
-  $http.get("/books/#{$scope.book_id}.json").success((data)->
-    $scope.book = data
-    $scope.new_title = data.title
-    $scope.new_author = data.author
-    $scope.new_description = data.description
-    )
-
-  $scope.editBook = ->
+  $scope.editBook =(book) ->
+    console.log($scope.checked)
     $scope.checked = false
-    $scope.book.title = $scope.new_title
-    $scope.book.author = $scope.new_author
-    $scope.book.description = $scope.new_description
-    $http.put("/books/#{$scope.book_id}.json", $scope.book).success (data)->
+    $http.put("/books/#{@book.id}.json", book).success (data)->
 ]
 
 # Define Config for CSRF token
