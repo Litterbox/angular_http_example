@@ -35,6 +35,7 @@ BookApp.controller "BooksCtrl", ["$scope", "$http", ($scope, $http) ->
         $scope.books.splice(@$index,1)
 
   $scope.getEditForm = ->
+
     $http.get("/books/#{@book.id}.json").success((data)->
       $scope.title = data.title
       $scope.author = data.author

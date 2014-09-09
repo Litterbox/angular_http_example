@@ -10,13 +10,13 @@
 
   <ul ng-repeat="book in books">
     <p>Book #{{book.id}}
-      <li>{{book.title}}</li>
-      <li>{{book.author}}</li>
-      <li>{{book.description}}</li>
+      <li>Title - {{book.title}}</li>
+      <li>Author - {{book.author}}</li>
+      <li>Description - {{book.description}}</li>
     </p>
       <button ng-click="deleteBook()">Delete</button>
-       <!-- <button ng-click="getEditForm()" ng-model ="checked">Edit</button> -->
-      <input type="checkbox" ng-click="getEditForm()" ng-model ="checked"><label>Edit</label>
+      <input type="checkbox" id = "editing{{$index}}" ng-click="getEditForm()" ng-model ="checked">
+      <label for="editing{{$index}}">Edit</label>
 
     <form ng-submit="editBook(book)" ng-show = "checked">
       <input type="text" ng-model="book.title" placeholder="Title">
