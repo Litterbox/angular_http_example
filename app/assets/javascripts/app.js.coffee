@@ -7,11 +7,8 @@ BookApp.config ["$routeProvider", "$locationProvider", ($routeProvider, $locatio
     .when "/books",
       templateUrl: "/books_templates/index",
       controller: "BooksCtrl"
-    .when "/books/:id",
-      templateUrl: "/books_templates/show",
-      controller: "BookDetailsCtrl"
-    .otherwise
-      redirectTo: "/books"
+  .otherwise
+    redirectTo: "/books"
 
   $locationProvider.html5Mode(true)
 ]
@@ -46,6 +43,7 @@ BookApp.controller "BooksCtrl", ["$scope", "$http", ($scope, $http) ->
 
   $scope.editBook =(book) ->
     this.checked = false
+
     $http.put("/books/#{@book.id}.json", book).success (data)->
 ]
 

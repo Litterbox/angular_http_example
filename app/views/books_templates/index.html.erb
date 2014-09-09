@@ -9,7 +9,11 @@
   </form>
 
   <ul ng-repeat="book in books">
-    <li>{{book.title}}, {{book.author}}
+    <p>Book #{{book.id}}
+      <li>{{book.title}}</li>
+      <li>{{book.author}}</li>
+      <li>{{book.description}}</li>
+    </p>
       <button ng-click="deleteBook()">Delete</button>
        <!-- <button ng-click="getEditForm()" ng-model ="checked">Edit</button> -->
       <input type="checkbox" ng-click="getEditForm()" ng-model ="checked"><label>Edit</label>
@@ -20,6 +24,6 @@
       <input type="text" ng-model="book.description" placeholder="Description">
       <button>Edit Book</button>
     </form>
-  </li>
+
   </ul>
 </div>

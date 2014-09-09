@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20140604204918) do
   create_table "books", force: true do |t|
     t.string   "title"
     t.string   "description"
-    t.string   "isbn"
     t.string   "author"
     t.datetime "created_at"
     t.datetime "updated_at"
