@@ -1,14 +1,14 @@
 # Define App and dependencies
-BookApp = angular.module("BookApp", ["ngRoute"])
+BookApp = angular.module("BookApp", ["ngRoute", "templates"])
 
 # Setup the angular router
 BookApp.config ["$routeProvider", "$locationProvider", ($routeProvider, $locationProvider)->
   $routeProvider
-    .when "/books",
-      templateUrl: "/books_templates/index",
+    .when "/",
+      templateUrl: "index.html",
       controller: "BooksCtrl"
   .otherwise
-    redirectTo: "/books"
+    redirectTo: "/"
 
   $locationProvider.html5Mode(true)
 ]
@@ -17,7 +17,6 @@ BookApp.config ["$routeProvider", "$locationProvider", ($routeProvider, $locatio
 BookApp.controller "BooksCtrl", ["$scope", "$http", ($scope, $http) ->
 
   $scope.books = []
-  $scope.wrong = true;
 
   $scope.getBooks = ->
     $http.get("/books.json").success (data)->
@@ -35,7 +34,6 @@ BookApp.controller "BooksCtrl", ["$scope", "$http", ($scope, $http) ->
         $scope.books.splice(@$index,1)
 
   $scope.getEditForm = ->
-
     $http.get("/books/#{@book.id}.json").success((data)->
       $scope.title = data.title
       $scope.author = data.author
@@ -44,7 +42,6 @@ BookApp.controller "BooksCtrl", ["$scope", "$http", ($scope, $http) ->
 
   $scope.editBook =(book) ->
     this.checked = false
-
     $http.put("/books/#{@book.id}.json", book).success (data)->
 ]
 

@@ -6,10 +6,10 @@ class BooksController < ApplicationController
 
   respond_to :json, :html
 
-  layout :false
+  # layout :false
 
   def index
-    respond_with Book.all
+    respond_with (@books = Book.all)
   end
 
   def create

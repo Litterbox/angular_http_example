@@ -1,6 +1,6 @@
 # $HTTP
 
-#### The $http service is a core Angular service that facilitates communication with the remote HTTP servers via the browser's XMLHttpRequest object or via JSONP.
+### The $http service is a core Angular service that facilitates communication with the remote HTTP servers via the browser's XMLHttpRequest object or via JSONP.
 
 
 ## How to include $http it in your Angular application
@@ -62,7 +62,7 @@ $httpProvider.defaults.headers.put (header defaults for PUT requests)
 Content-Type: application/json
 ```
 
-What might we need to add to our headers in our Rails app? How about the CSRF Token? We would do that using the config option (this is essential for our Rails app)
+What might we need to add to our headers in our Rails app? How about the CSRF Token? We would do that using the config option (this is essential for our Rails app and we will not be able to make any calls to our API without this configuration)
 
 ```
 TestApp.config(["$httpProvider", function($httpProvider){
@@ -72,4 +72,37 @@ TestApp.config(["$httpProvider", function($httpProvider){
 
 ## Angular Router
 
-## ng-view vs yield
+As we start to move our routes to the front-end we will need to include the Angular Router with the $routeProvider (for routing) and $locationProvider (for URL rewriting) dependencies (the .when goes on for however many routes you have)
+
+```
+NAME_OF_APP.config ["$routeProvider", "$locationProvider", ($routeProvider, $locationProvider)->
+  $routeProvider
+    .when "ROUTE",
+      templateUrl: "NAME_OF_TEMPLATE",
+      controller: "NAME_OF_CONTROLLER"
+    .when "ROUTE",
+      templateUrl: "NAME_OF_TEMPLATE",
+      controller: "NAME_OF_CONTROLLER" 
+  .otherwise
+    redirectTo: "ROUTE"
+
+  $locationProvider.html5Mode(true)
+]
+```
+
+## To include templates 
+
+Since we will be using Angular templates and not rendering pages from the views folder, we need a good way to include angular templates.
+
+1. In your Gemfile include `gem 'angular-rails-templates'` and then run bundle install 
+2. In your application.js include `//= require angular-rails-templates` and `//= require_tree ../templates`
+3. Place your templates in `app/assets/templates ` and make sure that they have an extention of .html (it can also be .html.erb or .html.haml)
+4. In your angular module, include the `'templates'` dependency. Example: `BookApp = angular.module("BookApp", ["ngRoute", "templates"])`
+5. In your $routeProvider, include your template as the template URL. Example:
+
+```
+  .when "/",
+      templateUrl: "index.html",
+      controller: "BooksCtrl"
+```
+
