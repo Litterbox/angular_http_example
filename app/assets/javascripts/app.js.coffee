@@ -28,13 +28,14 @@ BookApp.controller "BooksCtrl", ["$scope", "$http", ($scope, $http) ->
       $scope.books.push(data)
 
   $scope.deleteBook = ->
+    console.log(this.$index)
     conf = confirm "Are you sure?"
     if conf
-      $http.delete("/books/#{@book.id}.json").success (data)=>
-        $scope.books.splice(@$index,1)
+      $http.delete("/books/#{this.book.id}.json").success (data)=>
+        $scope.books.splice(this.$index,1)
 
   $scope.getEditForm = ->
-    $http.get("/books/#{@book.id}.json").success((data)->
+    $http.get("/books/#{this.book.id}.json").success((data)->
       $scope.title = data.title
       $scope.author = data.author
       $scope.description = data.description
@@ -42,7 +43,7 @@ BookApp.controller "BooksCtrl", ["$scope", "$http", ($scope, $http) ->
 
   $scope.editBook =(book) ->
     this.checked = false
-    $http.put("/books/#{@book.id}.json", book).success (data)->
+    $http.put("/books/#{this.book.id}.json", book).success (data)->
 ]
 
 # Define Config for CSRF token
